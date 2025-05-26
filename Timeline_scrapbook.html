@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <script src="./Timeline_files/stopExecutionOnTimeout-2c7831bb44f98c1391d6a4ffda0e1fd302503391ca806e7fcc7b9b87197aec26.js.download"></script>
+
+    <title>Scrapbook Timeline</title>
+
+    <link rel="canonical" href="https://codepen.io/knyttneve/pen/bgvmma" />
+
+    <link rel="stylesheet" href="./Timeline_files/normalize.min.css" />
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap");
+
+      body {
+        background: #f9f4f1;
+        font-family: "Indie Flower", cursive, "Pathway Gothic One", sans-serif;
+        color: #4a3c31;
+        margin: 0;
+        padding: 0;
+      }
+
+      .timeline-container {
+        width: 100%;
+        max-width: 720px;
+        margin: 40px auto;
+        background: #fff8f0;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        border-radius: 20px;
+        padding: 40px 30px 80px 30px;
+        position: relative;
+        background-image: url("https://i.imgur.com/3ZQZQ0v.png"); /* subtle paper texture */
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+
+      .timeline-header {
+        text-align: center;
+        margin-bottom: 50px;
+        position: relative;
+      }
+
+      .timeline-header__title {
+        font-family: "Indie Flower", cursive;
+        font-size: 48px;
+        color: #d94f4f;
+        margin: 0;
+        text-shadow: 1px 1px 2px #f9d5d3;
+      }
+
+      .timeline-header__subtitle {
+        font-family: "Indie Flower", cursive;
+        font-size: 20px;
+        color: #a64a4a;
+        margin-top: 8px;
+        letter-spacing: 3px;
+      }
+
+      .timeline {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+      }
+
+      .timeline-item {
+        background: #fff0f0;
+        border: 3px dashed #d94f4f;
+        border-radius: 20px;
+        padding: 20px 25px 25px 25px;
+        box-shadow: 3px 3px 10px rgba(217, 79, 79, 0.3);
+        position: relative;
+        transition: transform 0.3s ease;
+      }
+
+      .timeline-item:hover {
+        transform: scale(1.03);
+        box-shadow: 5px 5px 15px rgba(217, 79, 79, 0.5);
+      }
+
+      .timeline-item:before {
+        content: "✿";
+        position: absolute;
+        top: -15px;
+        left: 20px;
+        font-size: 24px;
+        color: #d94f4f;
+        font-family: "Indie Flower", cursive;
+      }
+
+      .timeline__content-title {
+        font-family: "Indie Flower", cursive;
+        font-size: 28px;
+        color: #d94f4f;
+        margin: 0 0 10px 0;
+      }
+
+      .timeline__content-desc {
+        font-family: "Indie Flower", cursive;
+        font-size: 16px;
+        color: #6b4a4a;
+        line-height: 1.5;
+        margin: 0;
+      }
+
+      .timeline__img {
+        max-width: 100%;
+        border-radius: 15px;
+        box-shadow: 0 6px 12px rgba(217, 79, 79, 0.4);
+        margin-bottom: 15px;
+        border: 4px solid #f9d5d3;
+      }
+
+      /* Spotify player container */
+      .spotify-player {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 300px;
+        height: 80px;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(217, 79, 79, 0.6);
+        overflow: hidden;
+        z-index: 1000;
+        background: #fff0f0;
+      }
+
+      /* Responsive adjustments */
+      @media only screen and (max-width: 800px) {
+        .timeline-container {
+          margin: 20px 10px;
+          padding: 30px 20px 60px 20px;
+          max-width: 100%;
+          border-radius: 15px;
+        }
+
+        .timeline-header__title {
+          font-size: 36px;
+        }
+
+        .timeline-header__subtitle {
+          font-size: 16px;
+          letter-spacing: 2px;
+        }
+
+        .timeline-item {
+          padding: 15px 20px 20px 20px;
+          border-width: 2px;
+          border-radius: 15px;
+        }
+
+        .timeline__content-title {
+          font-size: 22px;
+        }
+
+        .timeline__content-desc {
+          font-size: 14px;
+        }
+
+        .spotify-player {
+          width: 90%;
+          height: 80px;
+          bottom: 10px;
+          right: 5%;
+          border-radius: 10px;
+        }
+      }
+    </style>
+  </head>
+
+  <body translate="no">
+    <div class="timeline-container" id="timeline-1">
+      <div class="timeline-header">
+        <h2 class="timeline-header__title">Love Story</h2>
+        <h3 class="timeline-header__subtitle">Dzaki & Cici</h3>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item" data-text="First Meet">
+          <div class="timeline__content">
+            <img
+              class="timeline__img"
+              src="./Timeline_files/first meet.jpeg"
+              alt="First Meet"
+            />
+            <h2 class="timeline__content-title">First Meet ✿</h2>
+            <p class="timeline__content-desc">
+              This photo is the first photo I took when I met you, I wanted to
+              take a picture because I knew you liked me haha.
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item" data-text="First Date in Panimbangan">
+          <div class="timeline__content">
+            <img
+              class="timeline__img"
+              src="./Timeline_files/first date.jpeg"
+              alt="First Date in Panimbangan"
+            />
+            <h2 class="timeline__content-title">First Date in Panimbangan ✿</h2>
+            <p class="timeline__content-desc">
+              I took these photos when we were on our first date, I remember I
+              taught you to take photos with the camera.
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item" data-text="Confess in Sanur">
+          <div class="timeline__content">
+            <img
+              class="timeline__img"
+              src="./Timeline_files/confess.jpg"
+              alt="Confess in Sanur"
+            />
+            <h2 class="timeline__content-title">Confess in Sanur ✿</h2>
+            <p class="timeline__content-desc">
+              This is a photo I took before I confessed to you. I purposely went
+              to Sanur to play in the water with you, and when you weren't
+              paying attention, I was planning to confess. I was really annoyed
+              when you took too long to respond during the confession. Bruh,
+              it's already night, stop playing hard to get.
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item" data-text="Concert in kebun raya bedugul">
+          <div class="timeline__content">
+            <img
+              class="timeline__img"
+              src="./Timeline_files/concert.jpeg"
+              alt="Concert in kebun raya bedugul"
+            />
+            <h2 class="timeline__content-title">
+              Concert in kebun raya bedugul ✿
+            </h2>
+            <p class="timeline__content-desc">
+              This photo was taken at the concert, we were really enjoying the
+              music, and when Reality Club played 'Love Epiphany,' I put a
+              necklace on you. That was one of the most romantic moments of my
+              life.
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item" data-text="Cofee,sunset,plane and you">
+          <div class="timeline__content">
+            <img
+              class="timeline__img"
+              src="./Timeline_files/mall date.jpeg"
+              alt="Coffee, sunset, plane and you"
+            />
+            <h2 class="timeline__content-title">
+              Coffee, sunset, plane and you ✿
+            </h2>
+            <p class="timeline__content-desc">
+              This was when we were at a coffee place near Ngurah Rai Airport. I
+              really enjoyed spending the day with you, watching the sunset and
+              the planes take off.
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item" data-text="Night date">
+          <div class="timeline__content">
+            <img
+              class="timeline__img"
+              src="./Timeline_files/might date.jpeg"
+              alt="Night date"
+            />
+            <h2 class="timeline__content-title">Night date ✿</h2>
+            <p class="timeline__content-desc">
+              And this was at night on the beach near the airport, haha. Our
+              photo is cute and romantic.
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item" data-text="mountain deth">
+          <div class="timeline__content">
+            <img
+              class="timeline__img"
+              src="./Timeline_files/mountain date.jpeg"
+              alt="Mountain date"
+            />
+            <h2 class="timeline__content-title">Mountain date ✿</h2>
+            <p class="timeline__content-desc">
+              This was when we hiked Trunyan Hill. I was so happy to have a
+              mountain date with you, even though I was super annoyed because
+              everything kept going wrong, losing my watch and, on the way down,
+              carrying Sasi while you had brake failure. Honestly, I was ready
+              to accept it if we crashed into someone's house!
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item" data-text="mommy and her child">
+          <div class="timeline__content">
+            <img
+              class="timeline__img"
+              src="./Timeline_files/timezone date.jpeg"
+              alt="Mommy and her child"
+            />
+            <h2 class="timeline__content-title">Mommy and her child ✿</h2>
+            <p class="timeline__content-desc">
+              This was the moment we went to Timezone. I looked like such a kid
+              playing there because I was so happy to be taken by you, Mommy,
+              and doing a photobox session there!
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item" data-text="Love Nusa Penida">
+          <div class="timeline__content">
+            <img
+              class="timeline__img"
+              src="./Timeline_files/nuse penida together.jpeg"
+              alt="Love Nusa Penida"
+            />
+            <h2 class="timeline__content-title">Love Nusa Penida ✿</h2>
+            <p class="timeline__content-desc">
+              This was during our honeymoon in Nusa Penida, haha. This is one of
+              my favorite moments—I could enjoy the ocean with you as much as I
+              wanted in such a calm vibe. At night, we swam and played games
+              together. Ahh, good times.
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item" data-text="A Promise">
+          <div class="timeline__content">
+            <img
+              class="timeline__img"
+              src="./Timeline_files/i-love-u.jpeg"
+              alt="A Promise"
+            />
+            <h2 class="timeline__content-title">A Promise ✿</h2>
+            <p class="timeline__content-desc">
+              This photo was taken during the farewell photo session at Undiksha
+              PMM, hiks :(. I tried to enjoy it even though this was the last
+              meeting with friends at PMM Undiksha (except for you, of course,
+              and I'll probably meet Fikri again too hahahahah).
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item" data-text="Pempek & Cuko">
+          <div class="timeline__content">
+            <img
+              class="timeline__img"
+              src="./Timeline_files/meet in palembang.jpeg"
+              alt="Pempek & Cuko"
+            />
+            <h2 class="timeline__content-title">Pempek & Cuko ✿</h2>
+            <p class="timeline__content-desc">
+              See, we met in Palembang! I really enjoyed being in Palembang as
+              long as I was with you. I was sad when you had to go home, but
+              it’s okay—I’ll personally ask for permission to visit your house
+              later. I was sad when I got back on the bus, but also happy to
+              leave the hot Palembang, awpaokakakaka.
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item" data-text="Your brithday">
+          <div class="timeline__content">
+            <img
+              class="timeline__img"
+              src="./Timeline_files/cici.jpeg"
+              alt="Your birthday"
+            />
+            <h2 class="timeline__content-title">Happy 1 Year Anniversary ✿</h2>
+            <p class="timeline__content-desc">
+              Happy 1 year Anniversary to my amazing girlfriend! every moment
+              you’ve brought joy, laughter, and love into my life. You are a
+              beautiful soul who makes every day brighter, and I’m so grateful
+              to share this journey with you. Here’s to more adventures,
+              laughter, and love in the coming year. I love you endlessly!
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spotify-player">
+      <iframe
+        src="https://open.spotify.com/embed/track/6WsG550j67Aj29z0iel7lo?si=d00e1190b64d454e"
+        width="300"
+        height="80"
+        frameborder="0"
+        allowtransparency="true"
+        allow="encrypted-media"
+        title="Spotify Player"
+      ></iframe>
+    </div>
+
+    <script src="./Timeline_files/jquery.min.js.download"></script>
+    <script id="rendered-js">
+      (function ($) {
+        $.fn.timeline = function () {
+          var selectors = {
+            id: $(this),
+            item: $(this).find(".timeline-item"),
+            activeClass: "timeline-item--active",
+            img: ".timeline__img",
+          };
+
+          selectors.item.eq(0).addClass(selectors.activeClass);
+          selectors.id.css(
+            "background-image",
+            "url(" +
+              selectors.item.first().find(selectors.img).attr("src") +
+              ")"
+          );
+
+          var itemLength = selectors.item.length;
+
+          // Support touch events for mobile devices
+          var touchStartY = 0;
+          var touchEndY = 0;
+
+          function handleTouchStart(e) {
+            touchStartY = e.changedTouches[0].screenY;
+          }
+
+          function handleTouchEnd(e) {
+            touchEndY = e.changedTouches[0].screenY;
+            handleScroll();
+          }
+
+          function handleScroll() {
+            var pos = window.pageYOffset || document.documentElement.scrollTop;
+            selectors.item.each(function (i) {
+              var min = $(this).offset().top;
+              var max = $(this).height() + $(this).offset().top;
+              if (i == itemLength - 2 && pos > min + $(this).height() / 2) {
+                selectors.item.removeClass(selectors.activeClass);
+                selectors.id.css(
+                  "background-image",
+                  "url(" +
+                    selectors.item.last().find(selectors.img).attr("src") +
+                    ")"
+                );
+                selectors.item.last().addClass(selectors.activeClass);
+              } else if (pos <= max - 40 && pos >= min) {
+                selectors.id.css(
+                  "url(" + $(this).find(selectors.img).attr("src") + ")"
+                );
+                selectors.item.removeClass(selectors.activeClass);
+                $(this).addClass(selectors.activeClass);
+              }
+            });
+          }
+
+          $(window).on("scroll", handleScroll);
+          $(window).on("touchstart", handleTouchStart);
+          $(window).on("touchend", handleTouchEnd);
+        };
+      })(jQuery);
+
+      $("#timeline-1").timeline();
+      //# sourceURL=pen.js
+    </script>
+  </body>
+</html>

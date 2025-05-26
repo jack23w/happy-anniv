@@ -1,346 +1,660 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  
-  <link rel="stylesheet" href="./Timeline_files/font-awesome.min.css">
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" href="./Timeline_files/font-awesome.min.css" />
 
     <script src="./Timeline_files/stopExecutionOnTimeout-2c7831bb44f98c1391d6a4ffda0e1fd302503391ca806e7fcc7b9b87197aec26.js.download"></script>
 
+    <title>Timeline</title>
 
-  <title>Timeline</title>
+    <link rel="canonical" href="https://codepen.io/knyttneve/pen/bgvmma" />
 
-    <link rel="canonical" href="https://codepen.io/knyttneve/pen/bgvmma">
-  
-  <link rel="stylesheet" href="./Timeline_files/normalize.min.css">
+    <link rel="stylesheet" href="./Timeline_files/normalize.min.css" />
 
-  
-  
-<style>
-@import url("https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap");
-.timeline {
-  display: flex;
-  margin: 0 auto;
-  flex-wrap: wrap;
-  flex-direction: column;
-  max-width: 700px;
-  position: relative;
-}
-.timeline__content-title {
-  font-weight: normal;
-  font-size: 66px;
-  margin: -10px 0 0 0;
-  transition: 0.4s;
-  padding: 0 10px;
-  box-sizing: border-box;
-  font-family: "Pathway Gothic One", sans-serif;
-  color: #f355f3;
-}
-.timeline__content-desc {
-  margin: 0;
-  font-size: 15px;
-  box-sizing: border-box;
-  color: rgba(255, 255, 255, 0.7);
-  font-family: Cardo;
-  font-weight: normal;
-  line-height: 25px;
-}
-.timeline:before {
-  position: absolute;
-  left: 50%;
-  width: 2px;
-  height: 100%;
-  margin-left: -1px;
-  content: "";
-  background: rgba(255, 255, 255, 0.07);
-}
-@media only screen and (max-width: 800px) {
-  .timeline:before {
-    left: 40px;
-  }
-}
-.timeline-item {
-  padding: 40px 0;
-  opacity: 0.3;
-  filter: blur(2px);
-  transition: 0.5s;
-  box-sizing: border-box;
-  width: calc(50% - 40px);
-  display: flex;
-  position: relative;
-  transform: translateY(-80px);
-}
-.timeline-item:before {
-  content: attr(data-text);
-  letter-spacing: 3px;
-  width: 100%;
-  position: absolute;
-  color: rgba(250, 249, 250, 0.918);
-  font-size: 14px;
-  font-family: "Pathway Gothic One", sans-serif;
-  border-left: 2px solid rgba(255, 255, 255, 0.5);
-  top: 70%;
-  margin-top: -5px;
-  padding-left: 15px;
-  opacity: 0;
-  right: calc(-100% - 56px);
-}
-.timeline-item:nth-child(even) {
-  align-self: flex-end;
-}
-.timeline-item:nth-child(even):before {
-  right: auto;
-  text-align: right;
-  left: calc(-100% - 56px);
-  padding-left: 0;
-  border-left: none;
-  border-right: 2px solid rgba(255, 255, 255, 0.5);
-  padding-right: 15px;
-}
-.timeline-item--active {
-  opacity: 1;
-  transform: translateY(0);
-  filter: blur(0px);
-}
-.timeline-item--active:before {
-  top: 50%;
-  transition: 0.3s all 0.2s;
-  opacity: 1;
-}
-.timeline-item--active .timeline__content-title {
-  margin: -50px 0 20px 0;
-}
-@media only screen and (max-width: 800px) {
-  .timeline-item {
-    align-self: baseline !important;
-    width: 100%;
-    padding: 0 30px 150px 80px;
-  }
-  .timeline-item:before {
-    left: 10px !important;
-    padding: 0 !important;
-    top: 50px;
-    text-align: center !important;
-    width: 60px;
-    border: none !important;
-  }
-  .timeline-item:last-child {
-    padding-bottom: 40px;
-  }
-}
-.timeline__img {
-  max-width: 100%;
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.4);
-}
-.timeline-container {
-  width: 100%;
-  position: relative;
-  padding: 80px 0;
-  transition: 0.3s ease 0s;
-  background-attachment: fixed;
-  background-size: cover;
-}
-.timeline-container:before {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(99, 99, 99, 0.8);
-  content: "";
-}
-.timeline-header {
-  width: 100%;
-  text-align: center;
-  margin-bottom: 80px;
-  position: relative;
-}
-.timeline-header__title {
-  color: #fff;
-  font-size: 46px;
-  font-family: Cardo;
-  font-weight: normal;
-  margin: 0;
-}
-.timeline-header__subtitle {
-  color: rgba(255, 255, 255, 0.5);
-  font-family: "Pathway Gothic One", sans-serif;
-  font-size: 16px;
-  letter-spacing: 5px;
-  margin: 10px 0 0 0;
-  font-weight: normal;
-}
-
-.demo-footer {
-  padding: 60px 0;
-  text-align: center;
-}
-.demo-footer a {
-  color: #999;
-  display: inline-block;
-  font-family: Cardo;
-}
-</style>
-
-  <script>
-  window.console = window.console || function(t) {};
-</script>
-
-  
-  
-</head>
-
-<body translate="no">
-  <audio id="background-audio" autoplay loop>
-    <source src="./Timeline_files/Is It The Answer - Reality Club.mp3" type="audio/mp3">
-    Your browser does not support the audio element.
-</audio>
-  <div class="timeline-container" id="timeline-1" style="background-image: url(&quot;https://imgur.com/a/11EaKwo;);">
-  <div class="timeline-header">
-    <h2 class="timeline-header__title">Love Story</h2>
-    <h3 class="timeline-header__subtitle">Dzaki & Cici</h3>
-  </div>
-  <div class="timeline">
-    <div class="timeline-item timeline-item--active" data-text="First Meet">
-      <div class="timeline__content"><img class="timeline__img" src="./Timeline_files/first meet.jpeg">
-        <h2 class="timeline__content-title"><i class="fa fa-heart"></i></h2>
-        <p class="timeline__content-desc">This photo is the first photo I took when I met you, i want to take picture bcs i know you like me hahha.</p>
-      </div>
-    </div>
-    <div class="timeline-item" data-text="First Date in Panimbangan">
-      <div class="timeline__content"><img class="timeline__img" src="./Timeline_files/first date.jpeg">
-        <h2 class="timeline__content-title"><i class="fa fa-heart"></i></h2>
-        <p class="timeline__content-desc">I took these photos when we are first date, I remember I taught you to take photos with the camera</p>
-      </div>
-    </div>
-    <div class="timeline-item" data-text="Confess in Sanur">
-      <div class="timeline__content"><img class="timeline__img" src="./Timeline_files/confess.jpg">
-        <h2 class="timeline__content-title"><i class="fa fa-heart"></i></h2>
-        <p class="timeline__content-desc">This is a photo I took before I confessed to you. I purposely went to Sanur to play in the water with you, and when you weren't paying attention, I was planning to confess. I was really annoyed when you took too long to respond during the confession. Bruh, it's already night, stop playing hard to get .</p>
-      </div>
-    </div>
-    <div class="timeline-item" data-text="Concert in kebun raya bedugul">
-      <div class="timeline__content"><img class="timeline__img" src="./Timeline_files/concert.jpeg">
-        <h2 class="timeline__content-title"><i class="fa fa-heart"></i></h2>
-        <p class="timeline__content-desc">This photo was taken at the concert, we were really enjoying the music, and when Reality Club played 'Love Epiphany,' I put a necklace on you. That was one of the most romantic moments of my life .</p>
-      </div>
-    </div>
-    <div class="timeline-item" data-text="Cofee,sunset,plane and you">
-      <div class="timeline__content"><img class="timeline__img" src="./Timeline_files/mall date.jpeg">
-        <h2 class="timeline__content-title"><i class="fa fa-heart"></i></h2>
-        <p class="timeline__content-desc">This was when we were at a coffee place near Ngurah Rai Airport. I really enjoyed spending the day with you, watching the sunset and the planes take off..</p>
-      </div>
-    </div>
-    <div class="timeline-item" data-text="Night date">
-      <div class="timeline__content"><img class="timeline__img" src="./Timeline_files/might date.jpeg">
-        <h2 class="timeline__content-title"><i class="fa fa-heart"></i></h2>
-        <p class="timeline__content-desc">And this was at night on the beach near the airport, haha. Our photo is cute and romantic..</p>
-      </div>
-    </div>
-    <div class="timeline-item" data-text="mountain deth">
-      <div class="timeline__content"><img class="timeline__img" src="./Timeline_files/mountain date.jpeg">
-        <h2 class="timeline__content-title"><i class="fa fa-heart"></i></h2>
-        <p class="timeline__content-desc">This was when we hiked Trunyan Hill. I was so happy to have a mountain date with you, even though I was super annoyed because everything kept going wrong,losing my watch and, on the way down, carrying Sasi while you had brake failure. Honestly, I was ready to accept it if we crashed into someone's house!</p>
-      </div>
-    </div>
-    <div class="timeline-item" data-text="mommy and her child">
-      <div class="timeline__content"><img class="timeline__img" src="./Timeline_files/timezone date.jpeg">
-        <h2 class="timeline__content-title"><i class="fa fa-heart"></i></h2>
-        <p class="timeline__content-desc">This was the moment we went to Timezone. I looked like such a kid playing there because I was so happy to be taken by you, Mommy, and doing a photobox session there.!</p>
-      </div>
-    </div>
-    <div class="timeline-item" data-text="Love Nusa Penida">
-      <div class="timeline__content"><img class="timeline__img" src="./Timeline_files/nuse penida together.jpeg">
-        <h2 class="timeline__content-title"><i class="fa fa-heart"></i></h2>
-        <p class="timeline__content-desc">
-          This was during our honeymoon in Nusa Penida, haha. This is one of my favorite moments—I could enjoy the ocean with you as much as I wanted in such a calm vibe. At night, we swam and played games together. Ahh, good times.
-        </p>
-      </div>
-    </div>
-    <div class="timeline-item" data-text="A Promise">
-      <div class="timeline__content"><img class="timeline__img" src="./Timeline_files/i-love-u.jpeg">
-        <h2 class="timeline__content-title"><i class="fa fa-heart"></i></h2>
-        <p class="timeline__content-desc">This photo was taken during the farewell photo session at Undiksha PMM, hiks :(. I tried to enjoy it even though this was the last meeting with friends at PMM Undiksha (except for you, of course, and I'll probably meet Fikri again too hahahahah).</p>
-      </div>
-    </div>
-    <div class="timeline-item" data-text="Suram">
-      <div class="timeline__content"><img class="timeline__img" src="./Timeline_files/ldr.jpeg">
-        <h2 class="timeline__content-title"><i class="fa fa-heart"></i></h2>
-        <p class="timeline__content-desc">This was during our first time in a long-distance relationship, right? It hurt so much that I dreamed about you for three days and couldn’t accept being back home, always thinking about Bali and the beach. Those were tough days. I hope we can go back to Bali again..</p>
-      </div>
-    </div>
-    <div class="timeline-item" data-text="Pempek & Cuko">
-      <div class="timeline__content"><img class="timeline__img" src="./Timeline_files/meet in palembang.jpeg">
-        <h2 class="timeline__content-title"><i class="fa fa-heart"></i></h2>
-        <p class="timeline__content-desc">
-          See, we met in Palembang! I really enjoyed being in Palembang as long as I was with you. I was sad when you had to go home, but it’s okay—I’ll personally ask for permission to visit your house later. I was sad when I got back on the bus, but also happy to leave the hot Palembang, awpaokakakaka
-        </p>
-      </div>
-    </div>
-    <div class="timeline-item" data-text="Your brithday">
-      <div class="timeline__content"><img class="timeline__img" src="./Timeline_files/cici.jpeg">
-        <h2 class="timeline__content-title"><i class="fa fa-heart"></i></h2>
-        <p class="timeline__content-desc">Happy birthday to my amazing girlfriend! Today, we celebrate not just the day you were born, but every moment you’ve brought joy, laughter, and love into my life. You are a beautiful soul who makes every day brighter, and I’m so grateful to share this journey with you. Here’s to more adventures, laughter, and love in the coming year. I love you endlessly!</p>
-      </div>
-    </div>
-  </div>
-</div>
-  <script src="./Timeline_files/jquery.min.js.download"></script>
-      <script id="rendered-js">
-(function ($) {
-  $.fn.timeline = function () {
-    var selectors = {
-      id: $(this),
-      item: $(this).find(".timeline-item"),
-      activeClass: "timeline-item--active",
-      img: ".timeline__img" };
-
-    selectors.item.eq(0).addClass(selectors.activeClass);
-    selectors.id.css(
-    "background-image",
-    "url(" +
-    selectors.item.
-    first().
-    find(selectors.img).
-    attr("src") +
-    ")");
-
-    var itemLength = selectors.item.length;
-    $(window).scroll(function () {
-      var max, min;
-      var pos = $(this).scrollTop();
-      selectors.item.each(function (i) {
-        min = $(this).offset().top;
-        max = $(this).height() + $(this).offset().top;
-        var that = $(this);
-        if (i == itemLength - 2 && pos > min + $(this).height() / 2) {
-          selectors.item.removeClass(selectors.activeClass);
-          selectors.id.css(
-          "background-image",
-          "url(" +
-          selectors.item.
-          last().
-          find(selectors.img).
-          attr("src") +
-          ")");
-
-          selectors.item.last().addClass(selectors.activeClass);
-        } else if (pos <= max - 40 && pos >= min) {
-          selectors.id.css(
-          "background-image",
-          "url(" +
-          $(this).
-          find(selectors.img).
-          attr("src") +
-          ")");
-
-          selectors.item.removeClass(selectors.activeClass);
-          $(this).addClass(selectors.activeClass);
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap");
+      .timeline {
+        display: flex;
+        margin: 0 auto;
+        flex-wrap: wrap;
+        flex-direction: column;
+        max-width: 700px;
+        position: relative;
+      }
+      .timeline__content-title {
+        font-weight: normal;
+        font-size: 66px;
+        margin: -10px 0 0 0;
+        transition: 0.4s;
+        padding: 0 10px;
+        box-sizing: border-box;
+        font-family: "Pathway Gothic One", sans-serif;
+        color: #f355f3;
+      }
+      .timeline__content-desc {
+        margin: 0;
+        font-size: 15px;
+        box-sizing: border-box;
+        color: rgba(255, 255, 255, 0.7);
+        font-family: Cardo;
+        font-weight: normal;
+        line-height: 25px;
+      }
+      .timeline:before {
+        position: absolute;
+        left: 50%;
+        width: 2px;
+        height: 100%;
+        margin-left: -1px;
+        content: "";
+        background: rgba(255, 255, 255, 0.07);
+      }
+      @media only screen and (max-width: 800px) {
+        .timeline:before {
+          left: 40px;
         }
-      });
-    });
-  };
-})(jQuery);
+      }
+      .timeline-item {
+        padding: 40px 0;
+        opacity: 0.3;
+        filter: blur(2px);
+        transition: 0.5s;
+        box-sizing: border-box;
+        width: calc(50% - 40px);
+        display: flex;
+        position: relative;
+        transform: translateY(-80px);
+      }
+      .timeline-item:before {
+        content: attr(data-text);
+        letter-spacing: 3px;
+        width: 100%;
+        position: absolute;
+        color: rgba(250, 249, 250, 0.918);
+        font-size: 14px;
+        font-family: "Pathway Gothic One", sans-serif;
+        border-left: 2px solid rgba(255, 255, 255, 0.5);
+        top: 70%;
+        margin-top: -5px;
+        padding-left: 15px;
+        opacity: 0;
+        right: calc(-100% - 56px);
+      }
+      .timeline-item:nth-child(even) {
+        align-self: flex-end;
+      }
+      .timeline-item:nth-child(even):before {
+        right: auto;
+        text-align: right;
+        left: calc(-100% - 56px);
+        padding-left: 0;
+        border-left: none;
+        border-right: 2px solid rgba(255, 255, 255, 0.5);
+        padding-right: 15px;
+      }
+      .timeline-item--active {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0px);
+      }
+      .timeline-item--active:before {
+        top: 50%;
+        transition: 0.3s all 0.2s;
+        opacity: 1;
+      }
+      .timeline-item--active .timeline__content-title {
+        margin: -50px 0 20px 0;
+      }
+      @media only screen and (max-width: 800px) {
+        .timeline-item {
+          align-self: baseline !important;
+          width: 100%;
+          padding: 0 30px 150px 80px;
+        }
+        .timeline-item:before {
+          left: 10px !important;
+          padding: 0 !important;
+          top: 50px;
+          text-align: center !important;
+          width: 60px;
+          border: none !important;
+        }
+        .timeline-item:last-child {
+          padding-bottom: 40px;
+        }
+      }
+      .timeline__img {
+        max-width: 100%;
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.4);
+      }
+      .timeline-container {
+        width: 100%;
+        position: relative;
+        padding: 80px 0;
+        transition: 0.3s ease 0s;
+        background-attachment: fixed;
+        background-size: cover;
+      }
+      .timeline-container:before {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(99, 99, 99, 0.8);
+        content: "";
+      }
+      .timeline-header {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 80px;
+        position: relative;
+      }
+      .timeline-header__title {
+        color: #fff;
+        font-size: 46px;
+        font-family: Cardo;
+        font-weight: normal;
+        margin: 0;
+      }
+      .timeline-header__subtitle {
+        color: rgba(255, 255, 255, 0.5);
+        font-family: "Pathway Gothic One", sans-serif;
+        font-size: 16px;
+        letter-spacing: 5px;
+        margin: 10px 0 0 0;
+        font-weight: normal;
+      }
 
-$("#timeline-1").timeline();
-//# sourceURL=pen.js
+      .demo-footer {
+        padding: 60px 0;
+        text-align: center;
+      }
+      .demo-footer a {
+        color: #999;
+        display: inline-block;
+        font-family: Cardo;
+      }
+    </style>
+
+    <script>
+      window.console = window.console || function (t) {};
     </script>
-<div id="veepn-breach-alert"><template shadowrootmode="open"><style>.breach-popup{font-family:FigtreeVF,sans-serif;position:fixed;z-index:2147483638;text-rendering:optimizelegibility;top:0;left:0;right:0;pointer-events:none;padding-inline:16px;height:0;overflow:visible;color:#222e3a}.breach-popup *{box-sizing:border-box}.breach-popup__inner{background-color:#de4558;width:100%;border-radius:16px;margin-inline:auto;pointer-events:all;position:relative;transition:transform .25s ease-in-out,max-width .25s ease-in-out;transform:translateY(16px);max-height:calc(100svh - 80px);display:flex;flex-direction:column}.breach-popup__header{min-height:32px;display:flex;align-items:center;justify-content:space-between;column-gap:16px;padding:4px;cursor:pointer}.breach-popup__close{cursor:pointer;background-color:transparent;border-style:none;outline:none;display:flex;align-items:center;justify-content:center;width:24px;height:24px;flex-shrink:0;opacity:.5}.breach-popup__wrap{display:grid;grid-template-rows:0fr;transition:grid-template-rows .25s ease-in-out;overflow:hidden}.breach-popup__content{overflow:hidden;opacity:0;transform:translateY(-10px)}.breach-popup--minimize .breach-popup__inner{max-width:485px;transform:translateY(-100%)}.breach-popup--collapse .breach-popup__inner{max-width:485px}.breach-popup--expand .breach-popup__inner{max-width:1120px}.breach-popup--expand .breach-popup__wrap{grid-template-rows:1fr}.breach-popup--expand .breach-popup__content{opacity:1;transform:translateY(0);transition:transform .25s ease-in-out,opacity .25s ease-in-out;transition-delay:.15s}.breach-popup--expand .breach-popup__header{cursor:default}.breach-info{padding:2px;height:100%}.breach-info__inner{padding:22px 22px 0;background-color:#fff;border-bottom-left-radius:15px;border-bottom-right-radius:15px;height:100%;overflow:auto}.breach-info__alert{font-size:24px;line-height:32px;font-weight:700;margin:0}.breach-info__list{margin-top:24px;display:flex;flex-wrap:wrap;gap:24px}@media only screen and (width >= 992px){.breach-info__list{flex-wrap:nowrap}}.breach-info__item{width:100%}.breach-info__item:nth-child(2){max-width:320px}.breach-info__item:nth-child(3){max-width:200px}.breach-info__title{font-size:18px;font-weight:700;line-height:32px;letter-spacing:-.1px;color:#de4558;margin-top:0;margin-bottom:4px}.breach-info__description{font-size:16px;line-height:28px;letter-spacing:-.1px}.breach-info__description ul{margin:0}.breach-info__actions{display:flex;justify-content:center;padding-top:32px;padding-bottom:22px;background-color:#fff;position:sticky;bottom:0}.breach-info__btn{cursor:pointer;border-style:none;outline:none;display:inline-flex;align-items:center;height:48px;padding-inline:20px;border-radius:12px;text-align:center;font-size:16px;font-weight:700;line-height:28px;letter-spacing:-.1px;color:#fff;background-color:#ff6400}.button-expand{position:absolute;bottom:0;left:50%;transform:translate(-50%,100%);z-index:1}.button-expand__pointer{cursor:pointer}.button-expand__alert{pointer-events:none;transition:opacity .25s ease-in-out}.button-expand__arrow{pointer-events:none;transition:transform .25s ease-in-out,opacity .25s ease-in-out;transform-origin:center}.button-expand--minimize .button-expand__arrow,.button-expand--collapse .button-expand__alert,.button-expand--expand .button-expand__alert{opacity:0}.button-expand--expand .button-expand__arrow{transform:rotate(180deg)}.header-collapse{display:flex;align-items:center;flex-wrap:wrap;column-gap:4px;padding-left:8px;font-size:14px;line-height:20px;letter-spacing:-.1px;color:#fff}.header-expand{display:flex;align-items:center;flex-wrap:wrap;column-gap:4px;padding-left:20px;font-size:14px;font-weight:500;line-height:20px;letter-spacing:-.1px;color:#fff}</style></template></div><style>@font-face{font-family:FigtreeVF;src:url(chrome-extension://panammoooggmlehahpcjckcncfeffcoi/fonts/FigtreeVF.woff2) format("woff2 supports variations"),url(chrome-extension://panammoooggmlehahpcjckcncfeffcoi/fonts/FigtreeVF.woff2) format("woff2-variations");font-weight:100 1000;font-display:swap}</style></body></html>
+  </head>
+
+  <body translate="no">
+    <audio id="background-audio" autoplay loop>
+      <source
+        src="./Timeline_files/Is It The Answer - Reality Club.mp3"
+        type="audio/mp3"
+      />
+      Your browser does not support the audio element.
+    </audio>
+    <div
+      class="timeline-container"
+      id="timeline-1"
+      style='background-image: url("https://imgur.com/a/11EaKwo;);'
+    >
+      <div class="timeline-header">
+        <h2 class="timeline-header__title">Love Story</h2>
+        <h3 class="timeline-header__subtitle">Dzaki & Cici</h3>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item timeline-item--active" data-text="First Meet">
+          <div class="timeline__content">
+            <img class="timeline__img" src="./Timeline_files/first meet.jpeg" />
+            <h2 class="timeline__content-title"><i class="fa fa-heart"></i></h2>
+            <p class="timeline__content-desc">
+              This photo is the first photo I took when I met you, i want to
+              take picture bcs i know you like me hahha.
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item" data-text="First Date in Panimbangan">
+          <div class="timeline__content">
+            <img class="timeline__img" src="./Timeline_files/first date.jpeg" />
+            <h2 class="timeline__content-title"><i class="fa fa-heart"></i></h2>
+            <p class="timeline__content-desc">
+              I took these photos when we are first date, I remember I taught
+              you to take photos with the camera
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item" data-text="Confess in Sanur">
+          <div class="timeline__content">
+            <img class="timeline__img" src="./Timeline_files/confess.jpg" />
+            <h2 class="timeline__content-title"><i class="fa fa-heart"></i></h2>
+            <p class="timeline__content-desc">
+              This is a photo I took before I confessed to you. I purposely went
+              to Sanur to play in the water with you, and when you weren't
+              paying attention, I was planning to confess. I was really annoyed
+              when you took too long to respond during the confession. Bruh,
+              it's already night, stop playing hard to get .
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item" data-text="Concert in kebun raya bedugul">
+          <div class="timeline__content">
+            <img class="timeline__img" src="./Timeline_files/concert.jpeg" />
+            <h2 class="timeline__content-title"><i class="fa fa-heart"></i></h2>
+            <p class="timeline__content-desc">
+              This photo was taken at the concert, we were really enjoying the
+              music, and when Reality Club played 'Love Epiphany,' I put a
+              necklace on you. That was one of the most romantic moments of my
+              life .
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item" data-text="Cofee,sunset,plane and you">
+          <div class="timeline__content">
+            <img class="timeline__img" src="./Timeline_files/mall date.jpeg" />
+            <h2 class="timeline__content-title"><i class="fa fa-heart"></i></h2>
+            <p class="timeline__content-desc">
+              This was when we were at a coffee place near Ngurah Rai Airport. I
+              really enjoyed spending the day with you, watching the sunset and
+              the planes take off..
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item" data-text="Night date">
+          <div class="timeline__content">
+            <img class="timeline__img" src="./Timeline_files/might date.jpeg" />
+            <h2 class="timeline__content-title"><i class="fa fa-heart"></i></h2>
+            <p class="timeline__content-desc">
+              And this was at night on the beach near the airport, haha. Our
+              photo is cute and romantic..
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item" data-text="mountain deth">
+          <div class="timeline__content">
+            <img
+              class="timeline__img"
+              src="./Timeline_files/mountain date.jpeg"
+            />
+            <h2 class="timeline__content-title"><i class="fa fa-heart"></i></h2>
+            <p class="timeline__content-desc">
+              This was when we hiked Trunyan Hill. I was so happy to have a
+              mountain date with you, even though I was super annoyed because
+              everything kept going wrong,losing my watch and, on the way down,
+              carrying Sasi while you had brake failure. Honestly, I was ready
+              to accept it if we crashed into someone's house!
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item" data-text="mommy and her child">
+          <div class="timeline__content">
+            <img
+              class="timeline__img"
+              src="./Timeline_files/timezone date.jpeg"
+            />
+            <h2 class="timeline__content-title"><i class="fa fa-heart"></i></h2>
+            <p class="timeline__content-desc">
+              This was the moment we went to Timezone. I looked like such a kid
+              playing there because I was so happy to be taken by you, Mommy,
+              and doing a photobox session there.!
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item" data-text="Love Nusa Penida">
+          <div class="timeline__content">
+            <img
+              class="timeline__img"
+              src="./Timeline_files/nuse penida together.jpeg"
+            />
+            <h2 class="timeline__content-title"><i class="fa fa-heart"></i></h2>
+            <p class="timeline__content-desc">
+              This was during our honeymoon in Nusa Penida, haha. This is one of
+              my favorite moments—I could enjoy the ocean with you as much as I
+              wanted in such a calm vibe. At night, we swam and played games
+              together. Ahh, good times.
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item" data-text="A Promise">
+          <div class="timeline__content">
+            <img class="timeline__img" src="./Timeline_files/i-love-u.jpeg" />
+            <h2 class="timeline__content-title"><i class="fa fa-heart"></i></h2>
+            <p class="timeline__content-desc">
+              This photo was taken during the farewell photo session at Undiksha
+              PMM, hiks :(. I tried to enjoy it even though this was the last
+              meeting with friends at PMM Undiksha (except for you, of course,
+              and I'll probably meet Fikri again too hahahahah).
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item" data-text="Suram">
+          <div class="timeline__content">
+            <img class="timeline__img" src="./Timeline_files/ldr.jpeg" />
+            <h2 class="timeline__content-title"><i class="fa fa-heart"></i></h2>
+            <p class="timeline__content-desc">
+              This was during our first time in a long-distance relationship,
+              right? It hurt so much that I dreamed about you for three days and
+              couldn’t accept being back home, always thinking about Bali and
+              the beach. Those were tough days. I hope we can go back to Bali
+              again..
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item" data-text="Pempek & Cuko">
+          <div class="timeline__content">
+            <img
+              class="timeline__img"
+              src="./Timeline_files/meet in palembang.jpeg"
+            />
+            <h2 class="timeline__content-title"><i class="fa fa-heart"></i></h2>
+            <p class="timeline__content-desc">
+              See, we met in Palembang! I really enjoyed being in Palembang as
+              long as I was with you. I was sad when you had to go home, but
+              it’s okay—I’ll personally ask for permission to visit your house
+              later. I was sad when I got back on the bus, but also happy to
+              leave the hot Palembang, awpaokakakaka
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item" data-text="Your brithday">
+          <div class="timeline__content">
+            <img class="timeline__img" src="./Timeline_files/cici.jpeg" />
+            <h2 class="timeline__content-title"><i class="fa fa-heart"></i></h2>
+            <p class="timeline__content-desc">
+              Happy 1 year Anniversary to my amazing girlfriend! every moment
+              you’ve brought joy, laughter, and love into my life. You are a
+              beautiful soul who makes every day brighter, and I’m so grateful
+              to share this journey with you. Here’s to more adventures,
+              laughter, and love in the coming year. I love you endlessly!
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./Timeline_files/jquery.min.js.download"></script>
+    <script id="rendered-js">
+      (function ($) {
+        $.fn.timeline = function () {
+          var selectors = {
+            id: $(this),
+            item: $(this).find(".timeline-item"),
+            activeClass: "timeline-item--active",
+            img: ".timeline__img",
+          };
+
+          selectors.item.eq(0).addClass(selectors.activeClass);
+          selectors.id.css(
+            "background-image",
+            "url(" +
+              selectors.item.first().find(selectors.img).attr("src") +
+              ")"
+          );
+
+          var itemLength = selectors.item.length;
+          $(window).scroll(function () {
+            var max, min;
+            var pos = $(this).scrollTop();
+            selectors.item.each(function (i) {
+              min = $(this).offset().top;
+              max = $(this).height() + $(this).offset().top;
+              var that = $(this);
+              if (i == itemLength - 2 && pos > min + $(this).height() / 2) {
+                selectors.item.removeClass(selectors.activeClass);
+                selectors.id.css(
+                  "background-image",
+                  "url(" +
+                    selectors.item.last().find(selectors.img).attr("src") +
+                    ")"
+                );
+
+                selectors.item.last().addClass(selectors.activeClass);
+              } else if (pos <= max - 40 && pos >= min) {
+                selectors.id.css(
+                  "background-image",
+                  "url(" + $(this).find(selectors.img).attr("src") + ")"
+                );
+
+                selectors.item.removeClass(selectors.activeClass);
+                $(this).addClass(selectors.activeClass);
+              }
+            });
+          });
+        };
+      })(jQuery);
+
+      $("#timeline-1").timeline();
+      //# sourceURL=pen.js
+    </script>
+    <div id="veepn-breach-alert">
+      <template shadowrootmode="open"
+        ><style>
+          .breach-popup {
+            font-family: FigtreeVF, sans-serif;
+            position: fixed;
+            z-index: 2147483638;
+            text-rendering: optimizelegibility;
+            top: 0;
+            left: 0;
+            right: 0;
+            pointer-events: none;
+            padding-inline: 16px;
+            height: 0;
+            overflow: visible;
+            color: #222e3a;
+          }
+          .breach-popup * {
+            box-sizing: border-box;
+          }
+          .breach-popup__inner {
+            background-color: #de4558;
+            width: 100%;
+            border-radius: 16px;
+            margin-inline: auto;
+            pointer-events: all;
+            position: relative;
+            transition: transform 0.25s ease-in-out, max-width 0.25s ease-in-out;
+            transform: translateY(16px);
+            max-height: calc(100svh - 80px);
+            display: flex;
+            flex-direction: column;
+          }
+          .breach-popup__header {
+            min-height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            column-gap: 16px;
+            padding: 4px;
+            cursor: pointer;
+          }
+          .breach-popup__close {
+            cursor: pointer;
+            background-color: transparent;
+            border-style: none;
+            outline: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+            opacity: 0.5;
+          }
+          .breach-popup__wrap {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.25s ease-in-out;
+            overflow: hidden;
+          }
+          .breach-popup__content {
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          .breach-popup--minimize .breach-popup__inner {
+            max-width: 485px;
+            transform: translateY(-100%);
+          }
+          .breach-popup--collapse .breach-popup__inner {
+            max-width: 485px;
+          }
+          .breach-popup--expand .breach-popup__inner {
+            max-width: 1120px;
+          }
+          .breach-popup--expand .breach-popup__wrap {
+            grid-template-rows: 1fr;
+          }
+          .breach-popup--expand .breach-popup__content {
+            opacity: 1;
+            transform: translateY(0);
+            transition: transform 0.25s ease-in-out, opacity 0.25s ease-in-out;
+            transition-delay: 0.15s;
+          }
+          .breach-popup--expand .breach-popup__header {
+            cursor: default;
+          }
+          .breach-info {
+            padding: 2px;
+            height: 100%;
+          }
+          .breach-info__inner {
+            padding: 22px 22px 0;
+            background-color: #fff;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            height: 100%;
+            overflow: auto;
+          }
+          .breach-info__alert {
+            font-size: 24px;
+            line-height: 32px;
+            font-weight: 700;
+            margin: 0;
+          }
+          .breach-info__list {
+            margin-top: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+          }
+          @media only screen and (width >= 992px) {
+            .breach-info__list {
+              flex-wrap: nowrap;
+            }
+          }
+          .breach-info__item {
+            width: 100%;
+          }
+          .breach-info__item:nth-child(2) {
+            max-width: 320px;
+          }
+          .breach-info__item:nth-child(3) {
+            max-width: 200px;
+          }
+          .breach-info__title {
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 32px;
+            letter-spacing: -0.1px;
+            color: #de4558;
+            margin-top: 0;
+            margin-bottom: 4px;
+          }
+          .breach-info__description {
+            font-size: 16px;
+            line-height: 28px;
+            letter-spacing: -0.1px;
+          }
+          .breach-info__description ul {
+            margin: 0;
+          }
+          .breach-info__actions {
+            display: flex;
+            justify-content: center;
+            padding-top: 32px;
+            padding-bottom: 22px;
+            background-color: #fff;
+            position: sticky;
+            bottom: 0;
+          }
+          .breach-info__btn {
+            cursor: pointer;
+            border-style: none;
+            outline: none;
+            display: inline-flex;
+            align-items: center;
+            height: 48px;
+            padding-inline: 20px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 28px;
+            letter-spacing: -0.1px;
+            color: #fff;
+            background-color: #ff6400;
+          }
+          .button-expand {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translate(-50%, 100%);
+            z-index: 1;
+          }
+          .button-expand__pointer {
+            cursor: pointer;
+          }
+          .button-expand__alert {
+            pointer-events: none;
+            transition: opacity 0.25s ease-in-out;
+          }
+          .button-expand__arrow {
+            pointer-events: none;
+            transition: transform 0.25s ease-in-out, opacity 0.25s ease-in-out;
+            transform-origin: center;
+          }
+          .button-expand--minimize .button-expand__arrow,
+          .button-expand--collapse .button-expand__alert,
+          .button-expand--expand .button-expand__alert {
+            opacity: 0;
+          }
+          .button-expand--expand .button-expand__arrow {
+            transform: rotate(180deg);
+          }
+          .header-collapse {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            column-gap: 4px;
+            padding-left: 8px;
+            font-size: 14px;
+            line-height: 20px;
+            letter-spacing: -0.1px;
+            color: #fff;
+          }
+          .header-expand {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            column-gap: 4px;
+            padding-left: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 20px;
+            letter-spacing: -0.1px;
+            color: #fff;
+          }
+        </style></template
+      >
+    </div>
+    <style>
+      @font-face {
+        font-family: FigtreeVF;
+        src: url(chrome-extension://panammoooggmlehahpcjckcncfeffcoi/fonts/FigtreeVF.woff2)
+            format("woff2 supports variations"),
+          url(chrome-extension://panammoooggmlehahpcjckcncfeffcoi/fonts/FigtreeVF.woff2)
+            format("woff2-variations");
+        font-weight: 100 1000;
+        font-display: swap;
+      }
+    </style>
+  </body>
+</html>
